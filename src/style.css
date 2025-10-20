@@ -1,40 +1,47 @@
 body {
-  max-width: 800px;
+  max-width: 600px;
   margin: auto;
-  padding: 0 20px;
+  padding: 0 10px;
   font-size: 16px;
 }
 
-.song-item {
-  padding-left: 0.5em;
+ul#song-list > li {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  border-bottom: 1px solid #bbb;
+  padding: 2px 0;
 }
 
-.song-item::marker {
-  content: var(--number, "");
-  font-size: 16px;
+ul#song-list {
+  list-style-type: none;
+  padding: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.song-number {
+  width: 45px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.song-content {
+  display: inline-block;
+  position: relative;
+  flex-grow: 1;
+}
+
+.song-title {
+  font-weight: bold;
+}
+
+.song-subtitle {
+  font-size: 14px;
+  font-style: italic;
   color: gray;
 }
 
-.song-header {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.song-key {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 16px;
-  height: 33px;
-  vertical-align: bottom;
-  display: table-cell;
-}
-
-.song-key-div {
-  float: right;
-}
-
-.song-artist {
-  display: inline;
+hr {
+  margin: 2px 0;
 }

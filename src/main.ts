@@ -2,40 +2,65 @@ import "./style.css";
 import songsJson from "./data/songs.json";
 
 type Song = {
-  number: string;
-  title: string;
-  subtitle?: string;
-  artist: string;
+  number: number;
   key: string;
-  links: {
-    lyrics?: string;
-  } & Record<string, string>;
+  opwekking?: string;
+  origin?: string;
+  ccli?: string;
+  ichthus_oud?: string;
+  ichthus_nieuw?: string;
+  themes: string[];
+  bible_verses: string[];
+  versions: {
+    number: string;
+    title: string;
+    subtitle?: string;
+    lyricist?: string;
+    composer?: string;
+    original_title?: string;
+    original_author?: string;
+    copyright?: string;
+    language?: string;
+    first_line: string;
+    links?: {
+      lyrics?: string;
+    } & Record<string, string>;
+  }[];
 };
 
 const songs = songsJson as Song[];
 
-const list = document.getElementById("songList") as HTMLUListElement;
+const list = document.getElementById("song-list") as HTMLUListElement;
 for (const song of songs) {
-  const listItem = document.createElement("li");
-  listItem.className = "song-item";
-  listItem.style = `--number: "${song.number}";`;
-  listItem.innerHTML = `
+  for (const version of song.versions) {
+    const listItem = document.createElement("li");
+    const numberSpan = document.createElement("span");
+    numberSpan.className = "song-number";
+    numberSpan.textContent = version.number;
+    listItem.appendChild(numberSpan);
+    const songContent = document.createElement("div");
+    songContent.className = "song-content";
+    songContent.innerHTML = `
 		<div class="song-header">
-		  <span class="song-title">
-				${song.title}
-				${song.subtitle ? `<span class="song-subtitle"> (${song.subtitle})</span>` : ""}
-			</span>
-			<div class="song-key-div"><span class="song-key">Key: ${song.key}</span></div>
+			<span class="song-title">${version.title}</span>
+				${version.subtitle ? `<br/><span class="song-subtitle"> ${version.subtitle}</span>` : ""}
 		</div>
-		<div class="song-artist">by ${song.artist}</div>
+		<div class="song-artist">van ${version.lyricist}</div>
+		${
+      version.links
+        ? `
 		<div class="song-links">
-			${Object.entries(song.links)
+			${Object.entries(version.links)
         .map(
           ([label, url]) =>
             `<a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`,
         )
         .join(" | ")}
-		</div>
+		</div>`
+        : ""
+    }
 	`;
-  list.appendChild(listItem);
+    listItem.appendChild(songContent);
+    list.appendChild(listItem);
+  }
 }
