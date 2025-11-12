@@ -106,3 +106,30 @@ ul#song-list {
   font-style: italic;
   color: gray;
 }
+
+#scroll-to-top-btn {
+  position: fixed;
+  bottom: -50px;
+  right: 24px;
+  z-index: 99;
+  border: none;
+  background-color: #555;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  transition: bottom 0.3s ease-in-out;
+  height: 42px;
+  width: 42px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#scroll-to-top-btn:hover {
+  background-color: #333;
+}
+
+#scroll-to-top-btn.show {
+  bottom: 24px;
+}

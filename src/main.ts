@@ -94,7 +94,6 @@ for (const song of songs) {
       if (details.style.maxHeight) {
         details.style.maxHeight = "";
       } else {
-        history.replaceState(null, "", "#" + version.number);
         details.style.maxHeight = details.scrollHeight + "px";
       }
     };
@@ -116,3 +115,22 @@ function expandSongFromHash() {
 
 window.addEventListener("hashchange", expandSongFromHash);
 window.onload = expandSongFromHash;
+
+const scrollButton = document.getElementById(
+  "scroll-to-top-btn",
+) as HTMLButtonElement;
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+scrollButton.onclick = scrollToTop;
+window.onscroll = function () {
+  if (
+    document.body.scrollTop > 200 ||
+    document.documentElement.scrollTop > 200
+  ) {
+    scrollButton.classList.add("show");
+  } else {
+    scrollButton.classList.remove("show");
+  }
+};
