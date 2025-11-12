@@ -56,6 +56,7 @@ for (const song of songs) {
   for (const version of song.versions) {
     const listItem = document.createElement("li");
     listItem.className = "song-item";
+    listItem.id = `song-${version.number}`;
     const numberSpan = document.createElement("span");
     numberSpan.className = "song-number";
     numberSpan.textContent = version.number;
@@ -93,6 +94,7 @@ for (const song of songs) {
       if (details.style.maxHeight) {
         details.style.maxHeight = "";
       } else {
+        history.replaceState(null, "", "#" + version.number);
         details.style.maxHeight = details.scrollHeight + "px";
       }
     };
@@ -100,3 +102,17 @@ for (const song of songs) {
     list.appendChild(listItem);
   }
 }
+
+function expandSongFromHash() {
+  if (window.location.hash) {
+    const songNumber = window.location.hash.substring(1);
+    const songElement = document.getElementById(`song-${songNumber}`);
+    if (songElement && !songElement.classList.contains("expanded")) {
+      songElement.click();
+      songElement.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+}
+
+window.addEventListener("hashchange", expandSongFromHash);
+window.onload = expandSongFromHash;
