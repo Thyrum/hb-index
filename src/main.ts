@@ -30,10 +30,32 @@ type Song = {
 
 const songs = songsJson as Song[];
 
+function detailRow(label: string, value: string | undefined): string {
+  if (!value) return "";
+  return `<tr><td>${label}</td><td>${value}</td></tr>`;
+}
+
+function getSongDetailsTable(song: Song, version: Song["versions"][0]): string {
+  let details = "<table>";
+  details += detailRow("Eerste regel", version.first_line);
+  details += detailRow("Toonsoort", song.key);
+  details += detailRow(
+    "Thema's",
+    song.themes.map((item) => item.toLowerCase()).join(", "),
+  );
+  details += detailRow("Bijbelteksten", song.bible_verses.join(", "));
+  details += detailRow("Oorspr. titel", version.original_title);
+  details += detailRow("Oorspr. auteur", version.original_author);
+  details += detailRow("Copyright", version.copyright);
+  details += "</table>";
+  return details;
+}
+
 const list = document.getElementById("song-list") as HTMLUListElement;
 for (const song of songs) {
   for (const version of song.versions) {
     const listItem = document.createElement("li");
+    listItem.className = "song-item";
     const numberSpan = document.createElement("span");
     numberSpan.className = "song-number";
     numberSpan.textContent = version.number;
@@ -59,7 +81,21 @@ for (const song of songs) {
 		</div>`
         : ""
     }
+		<div class="song-details">
+		${getSongDetailsTable(song, version)}
+		</div>
 	`;
+    listItem.onclick = function () {
+      (this as HTMLLIElement).classList.toggle("expanded");
+      const details = (this as HTMLLIElement).querySelector(
+        ".song-details",
+      ) as HTMLDivElement;
+      if (details.style.maxHeight) {
+        details.style.maxHeight = "";
+      } else {
+        details.style.maxHeight = details.scrollHeight + "px";
+      }
+    };
     listItem.appendChild(songContent);
     list.appendChild(listItem);
   }
