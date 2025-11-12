@@ -48,10 +48,14 @@ body {
   cursor: default;
 }
 
-.expanded,
-.song-item:hover,
-.song-item:active {
+.expanded {
   background-color: #f9f9f9;
+}
+
+@media (hover: hover) {
+  .song-item:hover {
+    background-color: #f9f9f9;
+  }
 }
 
 .song-details {
@@ -116,12 +120,12 @@ ul#song-list {
   background-color: #555;
   color: white;
   cursor: pointer;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 8px;
+  border-radius: 8px;
   font-size: 18px;
   transition: bottom 0.3s ease-in-out;
-  height: 42px;
-  width: 42px;
+  height: 40px;
+  width: 40px;
   text-align: center;
   vertical-align: middle;
 }
