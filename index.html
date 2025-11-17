@@ -14,7 +14,14 @@
   <body>
     <div class="container">
       <h1>HemelsBreed Liedbundel Index</h1>
+      <select name="group-by" id="group-by-select">
+        <option value="none">Geen groepering</option>
+        <option value="bible_book">Bijbelboek</option>
+        <option value="theme">Thema</option>
+      </select>
       <ul id="song-list"></ul>
+      <ul id="song-list-bible-book"></ul>
+      <ul id="song-list-theme"></ul>
       <button id="scroll-to-top-btn" title="Scroll to top">↑</button>
       <script type="module" src="/src/main.ts"></script>
     </div>
